@@ -44,16 +44,16 @@ This software is tested on Ubuntu 14.04 LTS (64bit).
 
 ### Installing DeconvNet
 
-** By running "setup.sh" you can download all the necessary file for training and inference include: **
+**By running "setup.sh" you can download all the necessary file for training and inference include:**
   0. caffe: you need modified version of caffe which support DeconvNet - https://github.com/HyeonwooNoh/caffe.git
   0. data: data used for training stage 1 and 2
   0. model: caffemodel of trained DeconvNet and other caffemodels required for training
 
 ### Training DeconvNet
 
-Training scripts are included in "./training/" directory
+Training scripts are included in *./training/* directory
 
-You can simply run following scripts in order to train DeconvNet
+**To train DeconvNet you can simply run following scripts in order:**
   0. 001\_start\_train.sh : script for first stage training
   0. 002\_start\_train.sh : script for second stage training
   0. 003\_start\_make\_bn\_layer\_testable : script converting trained DeconvNet with bn layer to inference mode
