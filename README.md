@@ -14,12 +14,6 @@ Detailed description of the system will be provided by our technical report [arX
 
 If you're using this code in a publication, please cite our papers.
 
-Hyeonwoo Noh, Seunghoon Hong, Bohyung Han.
-
-Learning Deconvolution Network for Semantic Segmentation
-
-arXiv:1505.04366, 2015.
-
     @article{noh2015learning,
       title={Learning Deconvolution Network for Semantic Segmentation},
       author={Noh, Hyeonwoo and Hong, Seunghoon and Han, Bohyung},
@@ -31,8 +25,7 @@ arXiv:1505.04366, 2015.
 ### Licence
 
 This software is being made available for research purpose only.
-
-check LICENSE file for details.
+Check LICENSE file for details.
 
 ### System Requirements
 
