@@ -1,0 +1,385 @@
+name: "DeconvNet_inference_deploy"
+
+input: "data"
+input_dim: 1
+input_dim: 3
+input_dim: 224
+input_dim: 224
+
+# 224 x 224
+# conv1_1
+layers {  bottom: "data"  top: "conv1_1"  name: "conv1_1"  type: CONVOLUTION
+  blobs_lr: 1 blobs_lr: 2 weight_decay: 1 weight_decay: 0
+  convolution_param {    num_output: 64    pad: 1    kernel_size: 3  }}
+layers { bottom: 'conv1_1' top: 'conv1_1' name: 'bn1_1' type: BN
+  bn_param { scale_filler { type: 'constant' value: 1 }
+             shift_filler { type: 'constant' value: 0.001 }
+             bn_mode: INFERENCE } }
+layers {  bottom: "conv1_1"  top: "conv1_1"  name: "relu1_1"  type: RELU}
+# conv1_2
+layers {  bottom: "conv1_1"  top: "conv1_2"  name: "conv1_2"  type: CONVOLUTION
+  blobs_lr: 1 blobs_lr: 2 weight_decay: 1 weight_decay: 0
+  convolution_param {    num_output: 64    pad: 1    kernel_size: 3  }}
+layers { bottom: 'conv1_2' top: 'conv1_2' name: 'bn1_2' type: BN
+  bn_param { scale_filler { type: 'constant' value: 1 }
+             shift_filler { type: 'constant' value: 0.001 }
+             bn_mode: INFERENCE } }
+layers {  bottom: "conv1_2"  top: "conv1_2"  name: "relu1_2"  type: RELU}
+
+# pool1
+layers {
+  bottom: "conv1_2"  top: "pool1" top:"pool1_mask"  name: "pool1"  type: POOLING
+  pooling_param {    pool: MAX    kernel_size: 2    stride: 2  }
+}
+
+# 112 x 112
+# conv2_1
+layers {  bottom: "pool1"  top: "conv2_1"  name: "conv2_1"  type: CONVOLUTION
+  blobs_lr: 1 blobs_lr: 2 weight_decay: 1 weight_decay: 0
+  convolution_param {    num_output: 128    pad: 1    kernel_size: 3  }}
+layers { bottom: 'conv2_1' top: 'conv2_1' name: 'bn2_1' type: BN
+  bn_param { scale_filler { type: 'constant' value: 1 }
+             shift_filler { type: 'constant' value: 0.001 }
+             bn_mode: INFERENCE } }
+layers {  bottom: "conv2_1"  top: "conv2_1"  name: "relu2_1"  type: RELU}
+# conv2_2
+layers {  bottom: "conv2_1"  top: "conv2_2"  name: "conv2_2"  type: CONVOLUTION
+  blobs_lr: 1 blobs_lr: 2 weight_decay: 1 weight_decay: 0
+  convolution_param {    num_output: 128    pad: 1    kernel_size: 3  }}
+layers { bottom: 'conv2_2' top: 'conv2_2' name: 'bn2_2' type: BN
+  bn_param { scale_filler { type: 'constant' value: 1 }
+             shift_filler { type: 'constant' value: 0.001 }
+            bn_mode: INFERENCE } }
+layers {  bottom: "conv2_2"  top: "conv2_2"  name: "relu2_2"  type: RELU}
+
+# pool2
+layers {
+  bottom: "conv2_2"  top: "pool2" top: "pool2_mask" name: "pool2"  type: POOLING
+  pooling_param {    pool: MAX    kernel_size: 2    stride: 2  }
+}
+
+# 56 x 56
+# conv3_1
+layers {  bottom: "pool2"  top: "conv3_1"  name: "conv3_1"  type: CONVOLUTION
+  blobs_lr: 1 blobs_lr: 2 weight_decay: 1 weight_decay: 0
+  convolution_param {    num_output: 256    pad: 1    kernel_size: 3  }}
+layers { bottom: 'conv3_1' top: 'conv3_1' name: 'bn3_1' type: BN
+  bn_param { scale_filler { type: 'constant' value: 1 }
+             shift_filler { type: 'constant' value: 0.001 }
+             bn_mode: INFERENCE } }
+layers {  bottom: "conv3_1"  top: "conv3_1"  name: "relu3_1"  type: RELU}
+# conv3_2
+layers {  bottom: "conv3_1"  top: "conv3_2"  name: "conv3_2"  type: CONVOLUTION
+  blobs_lr: 1 blobs_lr: 2 weight_decay: 1 weight_decay: 0
+  convolution_param {    num_output: 256    pad: 1    kernel_size: 3  }}
+layers { bottom: 'conv3_2' top: 'conv3_2' name: 'bn3_2' type: BN
+  bn_param { scale_filler { type: 'constant' value: 1 }
+             shift_filler { type: 'constant' value: 0.001 }
+             bn_mode: INFERENCE } }
+layers {  bottom: "conv3_2"  top: "conv3_2"  name: "relu3_2"  type: RELU}
+# conv3_3
+layers {  bottom: "conv3_2"  top: "conv3_3"  name: "conv3_3"  type: CONVOLUTION
+  blobs_lr: 1 blobs_lr: 2 weight_decay: 1 weight_decay: 0
+  convolution_param {    num_output: 256    pad: 1    kernel_size: 3  }}
+layers { bottom: 'conv3_3' top: 'conv3_3' name: 'bn3_3' type: BN
+  bn_param { scale_filler { type: 'constant' value: 1 }
+             shift_filler { type: 'constant' value: 0.001 }
+             bn_mode: INFERENCE } }
+layers {  bottom: "conv3_3"  top: "conv3_3"  name: "relu3_3"  type: RELU}
+
+# pool3
+layers {
+  bottom: "conv3_3"  top: "pool3" top: "pool3_mask"  name: "pool3"  type: POOLING
+  pooling_param {    pool: MAX    kernel_size: 2    stride: 2  }
+}
+
+# 28 x 28
+# conv4_1
+layers {  bottom: "pool3"  top: "conv4_1"  name: "conv4_1"  type: CONVOLUTION
+  blobs_lr: 1 blobs_lr: 2 weight_decay: 1 weight_decay: 0
+  convolution_param {    num_output: 512    pad: 1    kernel_size: 3  }}
+layers { bottom: 'conv4_1' top: 'conv4_1' name: 'bn4_1' type: BN
+  bn_param { scale_filler { type: 'constant' value: 1 }
+             shift_filler { type: 'constant' value: 0.001 }
+             bn_mode: INFERENCE } }
+layers {  bottom: "conv4_1"  top: "conv4_1"  name: "relu4_1"  type: RELU}
+# conv4_2
+layers {  bottom: "conv4_1"  top: "conv4_2"  name: "conv4_2"  type: CONVOLUTION
+  blobs_lr: 1 blobs_lr: 2 weight_decay: 1 weight_decay: 0
+  convolution_param {    num_output: 512    pad: 1    kernel_size: 3  }}
+layers { bottom: 'conv4_2' top: 'conv4_2' name: 'bn4_2' type: BN
+  bn_param { scale_filler { type: 'constant' value: 1 }
+             shift_filler { type: 'constant' value: 0.001 }
+             bn_mode: INFERENCE } }
+layers {  bottom: "conv4_2"  top: "conv4_2"  name: "relu4_2"  type: RELU}
+# conv4_3
+layers {  bottom: "conv4_2"  top: "conv4_3"  name: "conv4_3"  type: CONVOLUTION
+  blobs_lr: 1 blobs_lr: 2 weight_decay: 1 weight_decay: 0
+  convolution_param {    num_output: 512    pad: 1    kernel_size: 3  }}
+layers { bottom: 'conv4_3' top: 'conv4_3' name: 'bn4_3' type: BN
+  bn_param { scale_filler { type: 'constant' value: 1 }
+             shift_filler { type: 'constant' value: 0.001 }
+             bn_mode: INFERENCE } }
+layers {  bottom: "conv4_3"  top: "conv4_3"  name: "relu4_3"  type: RELU}
+
+# pool4
+layers {
+  bottom: "conv4_3"  top: "pool4" top: "pool4_mask"  name: "pool4"  type: POOLING
+  pooling_param {    pool: MAX    kernel_size: 2    stride: 2  }
+}
+
+# 14 x 14
+# conv5_1
+layers {  bottom: "pool4"  top: "conv5_1"  name: "conv5_1"  type: CONVOLUTION
+  blobs_lr: 1 blobs_lr: 2 weight_decay: 1 weight_decay: 0
+  convolution_param {    num_output: 512    pad: 1    kernel_size: 3  }}
+layers { bottom: 'conv5_1' top: 'conv5_1' name: 'bn5_1' type: BN
+  bn_param { scale_filler { type: 'constant' value: 1 }
+             shift_filler { type: 'constant' value: 0.001 } 
+             bn_mode: INFERENCE } }
+layers {  bottom: "conv5_1"  top: "conv5_1"  name: "relu5_1"  type: RELU}
+# conv5_2
+layers {  bottom: "conv5_1"  top: "conv5_2"  name: "conv5_2"  type: CONVOLUTION
+  blobs_lr: 1 blobs_lr: 2 weight_decay: 1 weight_decay: 0
+  convolution_param {    num_output: 512    pad: 1    kernel_size: 3  }}
+layers { bottom: 'conv5_2' top: 'conv5_2' name: 'bn5_2' type: BN
+  bn_param { scale_filler { type: 'constant' value: 1 }
+             shift_filler { type: 'constant' value: 0.001 }
+             bn_mode: INFERENCE } }
+layers {  bottom: "conv5_2"  top: "conv5_2"  name: "relu5_2"  type: RELU}
+# conv5_3
+layers {  bottom: "conv5_2"  top: "conv5_3"  name: "conv5_3"  type: CONVOLUTION
+  blobs_lr: 1 blobs_lr: 2 weight_decay: 1 weight_decay: 0
+  convolution_param {    num_output: 512    pad: 1    kernel_size: 3  }}
+layers { bottom: 'conv5_3' top: 'conv5_3' name: 'bn5_3' type: BN
+  bn_param { scale_filler { type: 'constant' value: 1 }
+             shift_filler { type: 'constant' value: 0.001 }
+             bn_mode: INFERENCE } }
+layers {  bottom: "conv5_3"  top: "conv5_3"  name: "relu5_3"  type: RELU}
+
+# pool5
+layers {
+  bottom: "conv5_3"  top: "pool5" top: "pool5_mask"  name: "pool5"  type: POOLING
+  pooling_param {    pool: MAX    kernel_size: 2    stride: 2  }
+}
+
+# 7 x 7
+# fc6
+layers { bottom: 'pool5' top: 'fc6' name: 'fc6' type: CONVOLUTION
+  blobs_lr: 1 blobs_lr: 2 weight_decay: 1 weight_decay: 0
+  convolution_param { kernel_size: 7 num_output: 4096 } }
+layers { bottom: 'fc6' top: 'fc6' name: 'bnfc6' type: BN
+  bn_param { scale_filler { type: 'constant' value: 1 }
+             shift_filler { type: 'constant' value: 0.001 }
+             bn_mode: INFERENCE } }
+layers {  bottom: "fc6"  top: "fc6"  name: "relu6"  type: RELU}
+
+# 1 x 1
+# fc7
+layers { bottom: 'fc6' top: 'fc7' name: 'fc7' type: CONVOLUTION
+  blobs_lr: 1 blobs_lr: 2 weight_decay: 1 weight_decay: 0
+  convolution_param { kernel_size: 1 num_output: 4096 } }
+layers { bottom: 'fc7' top: 'fc7' name: 'bnfc7' type: BN
+  bn_param { scale_filler { type: 'constant' value: 1 }
+             shift_filler { type: 'constant' value: 0.001 }
+             bn_mode: INFERENCE } }
+layers {  bottom: "fc7"  top: "fc7"  name: "relu7"  type: RELU}
+
+# fc6-deconv
+layers { bottom: 'fc7' top: 'fc6-deconv' name: 'fc6-deconv' type: DECONVOLUTION
+  blobs_lr: 1 blobs_lr: 2 weight_decay: 1 weight_decay: 0
+  convolution_param { num_output: 512 kernel_size: 7
+    weight_filler {      type: "gaussian"      std: 0.01    }
+    bias_filler {      type: "constant"      value: 0    }} }
+layers { bottom: 'fc6-deconv' top: 'fc6-deconv' name: 'fc6-deconv-bn' type: BN
+  bn_param { scale_filler { type: 'constant' value: 1 }
+             shift_filler { type: 'constant' value: 0.001 }
+             bn_mode: INFERENCE } }
+layers { bottom: 'fc6-deconv' top: 'fc6-deconv' name: 'fc6-deconv-relu' type: RELU }
+
+# 7 x 7
+# unpool5
+layers { type: UNPOOLING  bottom: "fc6-deconv"  bottom: "pool5_mask"  top: "unpool5"  name: "unpool5"
+  unpooling_param {   unpool: MAX   kernel_size: 2    stride: 2   unpool_size: 14 }
+}
+
+# 14 x 14
+# deconv5_1
+layers { bottom: 'unpool5' top: 'deconv5_1' name: 'deconv5_1' type: DECONVOLUTION
+  blobs_lr: 1 blobs_lr: 2 weight_decay: 1 weight_decay: 0
+  convolution_param { num_output: 512	pad: 1	kernel_size: 3
+    weight_filler {      type: "gaussian"      std: 0.01    }
+    bias_filler {      type: "constant"      value: 0    }} }
+layers { bottom: 'deconv5_1' top: 'deconv5_1' name: 'debn5_1' type: BN
+  bn_param { scale_filler { type: 'constant' value: 1 }
+             shift_filler { type: 'constant' value: 0.001 }
+             bn_mode: INFERENCE } }
+layers { bottom: 'deconv5_1' top: 'deconv5_1' name: 'derelu5_1' type: RELU }
+# deconv5_2
+layers { bottom: 'deconv5_1' top: 'deconv5_2' name: 'deconv5_2' type: DECONVOLUTION
+  blobs_lr: 1 blobs_lr: 2 weight_decay: 1 weight_decay: 0
+  convolution_param { num_output: 512	pad: 1	kernel_size: 3
+    weight_filler {      type: "gaussian"      std: 0.01    }
+    bias_filler {      type: "constant"      value: 0    }} }
+layers { bottom: 'deconv5_2' top: 'deconv5_2' name: 'debn5_2' type: BN
+  bn_param { scale_filler { type: 'constant' value: 1 }
+             shift_filler { type: 'constant' value: 0.001 }
+             bn_mode: INFERENCE } }
+layers { bottom: 'deconv5_2' top: 'deconv5_2' name: 'derelu5_2' type: RELU }
+# deconv5_3
+layers { bottom: 'deconv5_2' top: 'deconv5_3' name: 'deconv5_3' type: DECONVOLUTION
+  blobs_lr: 1 blobs_lr: 2 weight_decay: 1 weight_decay: 0
+  convolution_param { num_output: 512	pad: 1	kernel_size: 3
+    weight_filler {      type: "gaussian"      std: 0.01    }
+    bias_filler {      type: "constant"      value: 0    }} }
+layers { bottom: 'deconv5_3' top: 'deconv5_3' name: 'debn5_3' type: BN
+  bn_param { scale_filler { type: 'constant' value: 1 }
+             shift_filler { type: 'constant' value: 0.001 }
+             bn_mode: INFERENCE } }
+layers { bottom: 'deconv5_3' top: 'deconv5_3' name: 'derelu5_3' type: RELU }
+
+# unpool4
+layers { type: UNPOOLING  bottom: "deconv5_3"  bottom: "pool4_mask"  top: "unpool4"  name: "unpool4"
+  unpooling_param {   unpool: MAX   kernel_size: 2    stride: 2   unpool_size: 28 }
+}
+
+# 28 x 28
+# deconv4_1
+layers { bottom: 'unpool4' top: 'deconv4_1' name: 'deconv4_1' type: DECONVOLUTION
+  blobs_lr: 1 blobs_lr: 2 weight_decay: 1 weight_decay: 0
+  convolution_param { num_output: 512	pad: 1	kernel_size: 3
+    weight_filler {      type: "gaussian"      std: 0.01    }
+    bias_filler {      type: "constant"      value: 0    }} }
+layers { bottom: 'deconv4_1' top: 'deconv4_1' name: 'debn4_1' type: BN
+  bn_param { scale_filler { type: 'constant' value: 1 }
+             shift_filler { type: 'constant' value: 0.001 }
+             bn_mode: INFERENCE } }
+layers { bottom: 'deconv4_1' top: 'deconv4_1' name: 'derelu4_1' type: RELU }
+# deconv 4_2
+layers { bottom: 'deconv4_1' top: 'deconv4_2' name: 'deconv4_2' type: DECONVOLUTION
+  blobs_lr: 1 blobs_lr: 2 weight_decay: 1 weight_decay: 0
+  convolution_param { num_output: 512	pad: 1	kernel_size: 3
+    weight_filler {      type: "gaussian"      std: 0.01    }
+    bias_filler {      type: "constant"      value: 0    }} }
+layers { bottom: 'deconv4_2' top: 'deconv4_2' name: 'debn4_2' type: BN
+  bn_param { scale_filler { type: 'constant' value: 1 }
+             shift_filler { type: 'constant' value: 0.001 }
+             bn_mode: INFERENCE } }
+layers { bottom: 'deconv4_2' top: 'deconv4_2' name: 'derelu4_2' type: RELU }
+# deconv 4_3
+layers { bottom: 'deconv4_2' top: 'deconv4_3' name: 'deconv4_3' type: DECONVOLUTION
+  blobs_lr: 1 blobs_lr: 2 weight_decay: 1 weight_decay: 0
+  convolution_param { num_output: 256	pad: 1	kernel_size: 3
+    weight_filler {      type: "gaussian"      std: 0.01    }
+    bias_filler {      type: "constant"      value: 0    }} }
+layers { bottom: 'deconv4_3' top: 'deconv4_3' name: 'debn4_3' type: BN
+  bn_param { scale_filler { type: 'constant' value: 1 }
+             shift_filler { type: 'constant' value: 0.001 }
+             bn_mode: INFERENCE } }
+layers { bottom: 'deconv4_3' top: 'deconv4_3' name: 'derelu4_3' type: RELU }
+
+# unpool3
+layers { type: UNPOOLING  bottom: "deconv4_3"  bottom: "pool3_mask"  top: "unpool3"  name: "unpool3"
+  unpooling_param {   unpool: MAX   kernel_size: 2    stride: 2   unpool_size: 56 }
+}
+
+# 56 x 56
+# deconv3_1
+layers { bottom: 'unpool3' top: 'deconv3_1' name: 'deconv3_1' type: DECONVOLUTION
+  blobs_lr: 1 blobs_lr: 2 weight_decay: 1 weight_decay: 0
+  convolution_param { num_output:256	pad:1	kernel_size: 3
+    weight_filler {      type: "gaussian"      std: 0.01    }
+    bias_filler {      type: "constant"      value: 0    }} }
+layers { bottom: 'deconv3_1' top: 'deconv3_1' name: 'debn3_1' type: BN
+  bn_param { scale_filler { type: 'constant' value: 1 }
+             shift_filler { type: 'constant' value: 0.001 }
+             bn_mode: INFERENCE } }
+layers { bottom: 'deconv3_1' top: 'deconv3_1' name: 'derelu3_1' type: RELU }
+# deconv3_2
+layers { bottom: 'deconv3_1' top: 'deconv3_2' name: 'deconv3_2' type: DECONVOLUTION
+  blobs_lr: 1 blobs_lr: 2 weight_decay: 1 weight_decay: 0
+  convolution_param { num_output:256	pad:1	kernel_size: 3
+    weight_filler {      type: "gaussian"      std: 0.01    }
+    bias_filler {      type: "constant"      value: 0    }} }
+layers { bottom: 'deconv3_2' top: 'deconv3_2' name: 'debn3_2' type: BN
+  bn_param { scale_filler { type: 'constant' value: 1 }
+             shift_filler { type: 'constant' value: 0.001 }
+             bn_mode: INFERENCE } }
+layers { bottom: 'deconv3_2' top: 'deconv3_2' name: 'derelu3_2' type: RELU }
+# deconv3_3
+layers { bottom: 'deconv3_2' top: 'deconv3_3' name: 'deconv3_3' type: DECONVOLUTION
+  blobs_lr: 1 blobs_lr: 2 weight_decay: 1 weight_decay: 0
+  convolution_param { num_output:128	pad:1	kernel_size: 3
+    weight_filler {      type: "gaussian"      std: 0.01    }
+    bias_filler {      type: "constant"      value: 0    }} }
+layers { bottom: 'deconv3_3' top: 'deconv3_3' name: 'debn3_3' type: BN
+  bn_param { scale_filler { type: 'constant' value: 1 }
+             shift_filler { type: 'constant' value: 0.001 }
+             bn_mode: INFERENCE } }
+layers { bottom: 'deconv3_3' top: 'deconv3_3' name: 'derelu3_3' type: RELU }
+
+# unpool2
+layers { type: UNPOOLING  bottom: "deconv3_3"  bottom: "pool2_mask"  top: "unpool2"  name: "unpool2"
+  unpooling_param {   unpool: MAX   kernel_size: 2    stride: 2   unpool_size: 112 }
+}
+
+# 112 x 112
+# deconv2_1
+layers { bottom: 'unpool2' top: 'deconv2_1' name: 'deconv2_1' type: DECONVOLUTION
+  blobs_lr: 1 blobs_lr: 2 weight_decay: 1 weight_decay: 0
+  convolution_param { num_output:128	pad:1	kernel_size: 3
+    weight_filler {      type: "gaussian"      std: 0.01    }
+    bias_filler {      type: "constant"      value: 0    }} }
+layers { bottom: 'deconv2_1' top: 'deconv2_1' name: 'debn2_1' type: BN
+  bn_param { scale_filler { type: 'constant' value: 1 }
+             shift_filler { type: 'constant' value: 0.001 }
+             bn_mode: INFERENCE } }
+layers { bottom: 'deconv2_1' top: 'deconv2_1' name: 'derelu2_1' type: RELU }
+# deconv2_2
+layers { bottom: 'deconv2_1' top: 'deconv2_2' name: 'deconv2_2' type: DECONVOLUTION
+  blobs_lr: 1 blobs_lr: 2 weight_decay: 1 weight_decay: 0
+  convolution_param { num_output:64	pad:1	kernel_size: 3
+    weight_filler {      type: "gaussian"      std: 0.01    }
+    bias_filler {      type: "constant"      value: 0    }} }
+layers { bottom: 'deconv2_2' top: 'deconv2_2' name: 'debn2_2' type: BN
+  bn_param { scale_filler { type: 'constant' value: 1 }
+             shift_filler { type: 'constant' value: 0.001 }
+             bn_mode: INFERENCE } }
+layers { bottom: 'deconv2_2' top: 'deconv2_2' name: 'derelu2_2' type: RELU }
+
+# unpool1
+layers { type: UNPOOLING  bottom: "deconv2_2"  bottom: "pool1_mask"  top: "unpool1"  name: "unpool1"
+  unpooling_param {   unpool: MAX   kernel_size: 2    stride: 2   unpool_size: 224 }
+}
+
+# deconv1_1
+layers { bottom: 'unpool1' top: 'deconv1_1' name: 'deconv1_1' type: DECONVOLUTION
+  blobs_lr: 1 blobs_lr: 2 weight_decay: 1 weight_decay: 0
+  convolution_param { num_output:64	pad:1	kernel_size: 3
+    weight_filler {      type: "gaussian"      std: 0.01    }
+    bias_filler {      type: "constant"      value: 0    }} }
+layers { bottom: 'deconv1_1' top: 'deconv1_1' name: 'debn1_1' type: BN
+  bn_param { scale_filler { type: 'constant' value: 1 }
+             shift_filler { type: 'constant' value: 0.001 }
+             bn_mode: INFERENCE } }
+layers { bottom: 'deconv1_1' top: 'deconv1_1' name: 'derelu1_1' type: RELU }
+
+# deconv1_2
+layers { bottom: 'deconv1_1' top: 'deconv1_2' name: 'deconv1_2' type: DECONVOLUTION
+  blobs_lr: 1 blobs_lr: 2 weight_decay: 1 weight_decay: 0
+  convolution_param { num_output:64     pad:1   kernel_size: 3
+    weight_filler {      type: "gaussian"      std: 0.01    }
+    bias_filler {      type: "constant"      value: 0    }} }
+layers { bottom: 'deconv1_2' top: 'deconv1_2' name: 'debn1_2' type: BN
+  bn_param { scale_filler { type: 'constant' value: 1 }
+             shift_filler { type: 'constant' value: 0.001 }
+             bn_mode: INFERENCE } }
+layers { bottom: 'deconv1_2' top: 'deconv1_2' name: 'derelu1_2' type: RELU }
+
+# seg-score
+layers { name: 'seg-score-voc' type: CONVOLUTION bottom: 'deconv1_2' top: 'seg-score'
+  blobs_lr: 1 blobs_lr: 2 weight_decay: 1 weight_decay: 0
+  convolution_param { num_output: 21 kernel_size: 1
+    weight_filler {      type: "gaussian"      std: 0.01    }
+    bias_filler {      type: "constant"      value: 0    }} }
+

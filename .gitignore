@@ -1,0 +1,19 @@
+caffe
+
+# data for training
+*.png
+*.jpg
+*.txt
+
+# files created in training directory
+*.caffemodel
+training_log
+testing_log
+snapshot
+
+# temporarily created files
+*~
+*.swp
+*.tar.gz
+*.tar
+*.zip
