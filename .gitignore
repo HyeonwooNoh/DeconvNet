@@ -9,6 +9,7 @@ data/imagesets/*
 
 # files created in training directory
 *.caffemodel
+*.caffemodel*
 training_log
 testing_log
 snapshot
