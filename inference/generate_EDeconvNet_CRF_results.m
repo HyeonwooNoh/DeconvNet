@@ -15,6 +15,7 @@ end
 caffe('init', config.Path.CNN.model_proto, config.Path.CNN.model_data)
 caffe('set_device', config.gpuNum);
 caffe('set_mode_gpu');
+caffe('set_phase_test');
 fprintf('done\n');
 
 

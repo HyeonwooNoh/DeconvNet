@@ -16,6 +16,7 @@ end
 caffe('init', config.Path.CNN.model_proto, config.Path.CNN.model_data)
 caffe('set_device', config.gpuNum);
 caffe('set_mode_gpu');
+caffe('set_phase_test');
 fprintf('done\n');
 
 %% initialize paths
@@ -39,9 +40,8 @@ for i=1:length(ids)
 
     % read image
     I=imread(sprintf(VOCopts.imgpath,ids{i}));
-    padded_I=padarray(I,[config.im_sz - size(I,1), config.im_sz - size(I,2)],'post');
 
-    input_data = preprocess_image(padded_I, config.im_sz); 
+    input_data = preprocess_image(I, config.im_sz); 
     cnn_output = caffe('forward', input_data);
     
     result = cnn_output{1};
