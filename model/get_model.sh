@@ -14,3 +14,8 @@ cd ..
 cd DeconvNet
 wget http://cvlab.postech.ac.kr/research/deconvnet/model/DeconvNet/DeconvNet_trainval_inference.caffemodel
 cd ..
+
+cd FCN
+wget http://dl.caffe.berkeleyvision.org/fcn-8s-pascal.caffemodel
+cd ..
+
