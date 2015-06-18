@@ -51,7 +51,18 @@ Training scripts are included in *./training/* directory
   0. 002\_start\_train.sh : script for second stage training
   0. 003\_start\_make\_bn\_layer\_testable : script converting trained DeconvNet with bn layer to inference mode
 
+### Inference EDeconvNet+CRF
 
+Run *run_demo.m* to reproduce EDeconvNet+CRF results on VOC2012 test data.
+
+**This script will generated EDeconvNet+CRF results through following steps:**
+  0. run FCN-8s and cache the score [cache\_FCN8s\_results.m]
+  0. generate DeconvNet score and apply ensemble with FCN-8s score, post processing with densecrf [generate\_EDeconvNet\_CRF\_results.m]
+
+**external dependencies [can be downloaded by running "setup.sh" script]**
+  0. FCN-8s model and weight file [https://github.com/BVLC/caffe/wiki/Model-Zoo]
+  0. densecrf with matlab wrapper [https://github.com/johannesu/meanfield-matlab.git]
+  0. cached proposal bounding boxes extracted with edgebox object proposal [https://github.com/pdollar/edges] 
 
 
 
