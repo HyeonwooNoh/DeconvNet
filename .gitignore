@@ -29,3 +29,4 @@ inference/DeconvNet
 inference/FCN
 inference/data/*
 inference/ext/*
+inference/results
