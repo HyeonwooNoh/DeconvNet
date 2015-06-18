@@ -59,7 +59,7 @@ Run *run_demo.m* to reproduce EDeconvNet+CRF results on VOC2012 test data.
   0. run FCN-8s and cache the score [cache\_FCN8s\_results.m]
   0. generate DeconvNet score and apply ensemble with FCN-8s score, post processing with densecrf [generate\_EDeconvNet\_CRF\_results.m]
 
-**external dependencies [can be downloaded by running "setup.sh" script]**
+**External dependencies [can be downloaded by running "setup.sh" script]**
   0. FCN-8s model and weight file [https://github.com/BVLC/caffe/wiki/Model-Zoo]
   0. densecrf with matlab wrapper [https://github.com/johannesu/meanfield-matlab.git]
   0. cached proposal bounding boxes extracted with edgebox object proposal [https://github.com/pdollar/edges] 
