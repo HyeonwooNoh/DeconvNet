@@ -23,3 +23,9 @@ training/003_make_bn_layer_testable/*
 *.tar.gz
 *.tar
 *.zip
+
+# inference files
+inference/DeconvNet
+inference/FCN
+inference/data/*
+inference/ext/*
