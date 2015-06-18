@@ -1,4 +1,4 @@
-## DeconvNet: *Learning Deconvolution Network for Semantic Segmentation*
+## DeconvNet: Learning Deconvolution Network for Semantic Segmentation
 
 Created by Hyeonwoo Noh, Seunghoon Hong and Bohyung Han at POSTECH
 
