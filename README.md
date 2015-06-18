@@ -25,8 +25,8 @@ If you're using this code in a publication, please cite our papers.
 
 If you need model definition and pre-trained model only, you can download them from following location:
   0. caffe for DeconvNet: https://github.com/HyeonwooNoh/caffe
-  0. DeconvNet model definition: http://cvlab.postech.ac.kr/research/deconvnet/model/DeconvNet/DeconvNet\_inference\_deploy.prototxt
-  0. Pre-trained weight: http://cvlab.postech.ac.kr/research/deconvnet/model/DeconvNet/DeconvNet\_trainval\_inference.caffemodel
+  0. DeconvNet model definition: http://cvlab.postech.ac.kr/research/deconvnet/model/DeconvNet/DeconvNet_inference_deploy.prototxt
+  0. Pre-trained DeconvNet weight: http://cvlab.postech.ac.kr/research/deconvnet/model/DeconvNet/DeconvNet_trainval_inference.caffemodel
 
 ### Licence
 
