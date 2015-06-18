@@ -21,6 +21,12 @@ If you're using this code in a publication, please cite our papers.
       year={2015}
     }
 
+### Pre-trained Model
+
+If you need model definition and pre-trained model only, you can download them from following location:
+  0. caffe for DeconvNet: https://github.com/HyeonwooNoh/caffe
+  0. DeconvNet model definition: http://cvlab.postech.ac.kr/research/deconvnet/model/DeconvNet/DeconvNet\_inference\_deploy.prototxt
+  0. Pre-trained weight: http://cvlab.postech.ac.kr/research/deconvnet/model/DeconvNet/DeconvNet\_trainval\_inference.caffemodel
 
 ### Licence
 
@@ -58,6 +64,8 @@ Run *run_demo.m* to reproduce EDeconvNet+CRF results on VOC2012 test data.
 **This script will generated EDeconvNet+CRF results through following steps:**
   0. run FCN-8s and cache the score [cache\_FCN8s\_results.m]
   0. generate DeconvNet score and apply ensemble with FCN-8s score, post processing with densecrf [generate\_EDeconvNet\_CRF\_results.m]
+
+*EDeconvNet+CRF obtains 72.5 mean I/U on PASCAL VOC 2012 Test*
 
 **External dependencies [can be downloaded by running "setup.sh" script]**
   0. FCN-8s model and weight file [https://github.com/BVLC/caffe/wiki/Model-Zoo]
