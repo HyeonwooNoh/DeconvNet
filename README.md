@@ -1,6 +1,6 @@
 ## DeconvNet: Learning Deconvolution Network for Semantic Segmentation
 
-Created by Hyeonwoo Noh, Seunghoon Hong and Bohyung Han at POSTECH
+Created by [Hyeonwoo Noh](http://cvlab.postech.ac.kr/~hyeonwoonoh/), [Seunghoon Hong](http://cvlab.postech.ac.kr/~maga33/) and [Bohyung Han](http://cvlab.postech.ac.kr/~bhhan/) at POSTECH
 
 Acknowledgements: Thanks to Yangqing Jia and the BVLC team for creating Caffe.
 
